@@ -74,7 +74,7 @@ export default function Login() {
   };
 
   return (
-    <div className="h-screen w-full flex items-center px-4 bg-base-200">
+    <div className="min-h-screen w-full flex items-center px-4 bg-base-200">
       <title>Login Form</title>
       <div className="bg-base-100 rounded-2xl shadow-lg p-6 w-full max-w-md mx-auto">
         {/* Header */}
@@ -88,7 +88,7 @@ export default function Login() {
         </div>
 
         {/* Form */}
-        <form onSubmit={handleSubmit} className="space-y-2">
+        <form onSubmit={handleSubmit} className="space-y-2 ">
           <div className="space-y-2">
             {/* Email Field */}
             <div>
