@@ -1,9 +1,10 @@
 import React from 'react';
+import ProductDetails from '../ProductDetails/ProductDetails';
 
 const MyExports = () => {
     return (
         <div>
-            <p>export</p>
+            <ProductDetails></ProductDetails>
         </div>
     );
 };
