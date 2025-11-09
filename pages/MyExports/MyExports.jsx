@@ -16,7 +16,7 @@ const MyExports = () => {
           </p>
         </div>
         {/* add emports */}
-        <button className="btn btn-primary"><IoMdAdd size={18}/> Export A Product</button>
+        <button className="btn btn-primary rounded-md"><IoMdAdd size={18}/> Add Export/Product</button>
         {/* ================== */}
       </div>
       {/* ===== grid ======== */}
