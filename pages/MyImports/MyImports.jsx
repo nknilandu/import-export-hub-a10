@@ -65,7 +65,7 @@ const MyImports = () => {
               <td>${item.unitPrice.toFixed(2)}</td>
               <td>${item.totalValue.toFixed(2)}</td>
               <td>{item.importDate}</td>
-              <td><div className="flex items-center gap-2"><FaRegStar /> {item.rating}</div></td>
+              <td><div className="flex items-center gap-2"><FaRegStar className="text-yellow-500"/> {item.rating}</div></td>
               <td>
                 <button className="btn btn-ghost btn-xs underline text-primary">
                   Details

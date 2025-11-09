@@ -2,6 +2,7 @@ import React from "react";
 import { FiSearch } from "react-icons/fi";
 import ProductCard from "../../components/ProductCard/ProductCard";
 import { FiBox } from "react-icons/fi";
+import ProductDetails from "../ProductDetails/ProductDetails";
 
 const AllProducts = () => {
   const handleSeaarch = (e) => {
@@ -56,6 +57,10 @@ const AllProducts = () => {
         <ProductCard></ProductCard>
         <ProductCard></ProductCard>
       </div>
+      {/* ====================== */}
+      <ProductDetails></ProductDetails>
+      {/* ====================== */}
+
     </div>
   );
 };

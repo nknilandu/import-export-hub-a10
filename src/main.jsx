@@ -14,6 +14,7 @@ import AllProducts from '../pages/AllProducts/AllProducts';
 import MyExports from '../pages/MyExports/MyExports';
 import MyImports from '../pages/MyImports/MyImports';
 import AuthProvider from '../provider/AuthProvider';
+import AddExport from '../pages/AddExport/AddExport';
 
 const router = createBrowserRouter([
   {
@@ -44,6 +45,10 @@ const router = createBrowserRouter([
       {
         path: '/my-imports',
         Component: MyImports
+      },
+      {
+        path: '/add-export',
+        Component: AddExport
       },
       {
         path: "*",
