@@ -1,6 +1,3 @@
-import React from 'react';
-import { LuClock } from "react-icons/lu";
-import { MdOutlineCategory } from "react-icons/md";
 import { FaRegStar } from "react-icons/fa6";
 import { FaStar } from "react-icons/fa6";
 import { FiBox } from "react-icons/fi";
@@ -40,7 +37,7 @@ const ProductCard = () => {
     return (
 
             <div className="bg-base-100 w-full rounded-xl shadow-md hover:shadow-xl transition-all duration-300 group overflow-hidden flex flex-col">
-      <div className="w-full h-64 bg-base-300 overflow-hidden">
+      <div className="w-full h-56 bg-base-300 overflow-hidden">
         <img
           src={image}
           alt={serviceName}
@@ -83,7 +80,7 @@ const ProductCard = () => {
         <div className=" h-full w-full mt-2 flex items-end">
           <NavLink to={`/serviceDetails/${serviceId}`} className='w-full'>
 
-            <button className="btn btn-secondary w-full rounded-xl"><LuEye size={16}/> See Details</button>
+            <button className="btn btn-secondary w-full rounded-md"><LuEye size={18}/> See Details</button>
           </NavLink>
         </div>
       </div>

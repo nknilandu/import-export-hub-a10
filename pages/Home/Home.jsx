@@ -10,6 +10,7 @@ import { LuShieldCheck } from "react-icons/lu";
 import { LuUsers } from "react-icons/lu";
 import { RiGlobalLine } from "react-icons/ri";
 import { MdOutlineWatchLater } from "react-icons/md";
+import ExportProductCard from "../../components/ExportProductCard/ExportProductCard";
 
 const Home = () => {
   return (
@@ -42,6 +43,7 @@ const Home = () => {
           <ProductCard></ProductCard>
           <ProductCard></ProductCard>
           <ProductCard></ProductCard>
+          <ExportProductCard></ExportProductCard>
         </div>
 
         {/* ready to start */}

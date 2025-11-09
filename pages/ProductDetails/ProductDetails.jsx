@@ -25,7 +25,7 @@ const ProductDetails = () => {
             <h2 className="text-3xl font-bold text-foreground mb-2">
               Latest Products
             </h2>
-            <p className="text-muted-foreground">
+            <p className="text-muted-foreground text-base-content/70">
               Discover the newest additions to our global marketplace
             </p>
           </div>
@@ -40,7 +40,7 @@ const ProductDetails = () => {
             <FaStar size={16} />
             <FaStar size={16} />
             <FaRegStar size={16} />
-            <span className="text-black/50">4.9 (ratings)</span>
+            <span className="text-base-content/70">4.9 (ratings)</span>
           </div>
           {/* ========== */}
           <div className="bg-base-300 rounded-xl flex flex-col sm:flex-row p-3 my-6 gap-3">
@@ -89,7 +89,7 @@ const ProductDetails = () => {
           {/* ========== */}
           <div>
             <h2 className="text-xl font-bold mb-2">Product Description</h2>
-            <p>
+            <p className="text-base-content/70">
               Experience the rich, full-bodied flavor of our premium organic
               coffee beans, carefully sourced from the high-altitude regions of
               Colombia. These single-origin beans are grown using sustainable
