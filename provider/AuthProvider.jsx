@@ -1,27 +1,39 @@
-import { createContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
+import { createContext } from "react";
+import { app } from "../firebase/firebase.config";
 import {
   createUserWithEmailAndPassword,
   getAuth,
+  GoogleAuthProvider,
   onAuthStateChanged,
   sendPasswordResetEmail,
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
-  GoogleAuthProvider,
+  updateProfile,
 } from "firebase/auth";
-import { app } from "../firebase/firebase.config";
 
 export const AuthContext = createContext();
+
 const auth = getAuth(app);
 
 const AuthProvider = ({ children }) => {
-  // create user
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  // console.log(user);
+
+  //   create user
   const createUser = (email, password) => {
     return createUserWithEmailAndPassword(auth, email, password);
   };
-  // login user
+  //   login user
   const loginUser = (email, password) => {
     return signInWithEmailAndPassword(auth, email, password);
+  };
+  //   update user name and photo
+  const updateUser = (userData) => {
+    return updateProfile(auth.currentUser, userData);
   };
   // forgot password
   const forgotPassword = (email) => {
@@ -29,61 +41,38 @@ const AuthProvider = ({ children }) => {
   };
   //   log out user
   const logOut = () => {
-    setUserData(null);
     return signOut(auth);
   };
+
   // sign in or sign up with google
   const provider = new GoogleAuthProvider();
+
   const googleSignIn = () => {
     return signInWithPopup(auth, provider);
   };
 
-  //   check user
-  const [userData, setUserData] = useState(null);
-  const [loading, setLoading] = useState(true);
   useEffect(() => {
     return onAuthStateChanged(auth, (user) => {
+      setUser(user);
       setLoading(false);
-      setUserData(user);
     });
   }, []);
 
-  //   share function
   const authData = {
+    user,
+    setUser,
     createUser,
     loginUser,
+    updateUser,
     forgotPassword,
     logOut,
     googleSignIn,
-    userData,
-    setUserData,
     loading,
     setLoading,
   };
-
-  return <AuthContext value={authData}>{children}</AuthContext>;
+  return (
+    <AuthContext.Provider value={authData}>{children}</AuthContext.Provider>
+  );
 };
 
 export default AuthProvider;
-
-// export const AuthContext = createContext();
-// export default function AuthProvider ({children}) {
-//     const authData = {
-//         user: "nk nilandu",
-//         mail: "nknilandu@gmail.com"
-//     }
-//     return (
-//         <AuthContext value={authData}>
-//             {children}
-//         </AuthContext>
-//     );
-// };
-
-// in main.jsx
-// createRoot(document.getElementById("root")).render(
-//   <StrictMode>
-//     <AuthProvider>
-//       <RouterProvider router={router} />,
-//     </AuthProvider>
-//   </StrictMode>
-// );

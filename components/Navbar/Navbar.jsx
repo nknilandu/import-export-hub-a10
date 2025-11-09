@@ -1,14 +1,51 @@
 import { NavLink, Link } from "react-router";
 import { RiMenu2Fill } from "react-icons/ri";
-import { MdOutlinePets } from "react-icons/md";
 import { FiBox } from "react-icons/fi";
-
+import { useContext } from "react";
+import { AuthContext } from "../../provider/AuthProvider";
+import Swal from "sweetalert2";
 
 export default function Navbar() {
-    const user = false
+  const { user, setUser, loading, logOut } = useContext(AuthContext);
 
   const handleLogOut = () => {
-    
+    // sweetalert2 start
+    Swal.fire({
+      title: "Log out?",
+      theme: "auto",
+      text: "Are you sure want to logout ?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, log out!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        //logout action
+        logOut()
+          .then(() => {
+            setUser(null);
+            // success
+            Swal.fire({
+              title: "LogOut Successful!",
+              theme: "auto",
+              text: "You successfully loged out. You can login again by clicking 'login now' button",
+              icon: "success",
+            });
+          })
+          .catch((error) => {
+            console.log(error.message);
+            Swal.fire({
+              title: "Oops..",
+              theme: "auto",
+              text: "Somethings went wrong. please try again later",
+              icon: "error",
+            });
+          });
+      }
+    });
+
+    // sweetalert2 end
   };
 
   const linkClass = ({ isActive }) =>
@@ -78,11 +115,13 @@ export default function Navbar() {
 
           <div className="navbar-center hidden lg:flex">{list}</div>
           <div className="navbar-end">
-            {user ? (
+            {loading ? (
+              <span className="loading loading-spinner text-primary"></span>
+            ) : user ? (
               <div className="flex items-center justify-center gap-2">
                 <button
                   onClick={handleLogOut}
-                  className="text-xs border border-primary rounded-full text-primary font-semibold px-3 py-2 hover:bg-primary/10 transition duration-300"
+                  className="btn btn-soft btn-primary rounded-full"
                 >
                   Log out
                 </button>
@@ -95,7 +134,7 @@ export default function Navbar() {
               </div>
             ) : (
               <NavLink to="/auth/login">
-                <button className="text-xs bg-primary shadow-md rounded-full text-white font-semibold px-4 py-2 hover:bg-primary/80 transition duration-300">
+                <button className="btn btn-primary rounded-full">
                   Login Now
                 </button>
               </NavLink>
