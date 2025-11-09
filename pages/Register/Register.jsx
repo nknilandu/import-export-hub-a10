@@ -112,7 +112,7 @@ export default function Register() {
                 name="name"
                 placeholder="your name"
                 required
-                className="input text-sm w-full py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2C5F5D] focus:border-transparent"
+                className="input text-sm w-full py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent"
               />
             </div>
             {/* photo url Field */}
@@ -123,7 +123,7 @@ export default function Register() {
                 name="avater"
                 placeholder="photo url"
                 required
-                className="input text-sm w-full py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2C5F5D] focus:border-transparent"
+                className="input text-sm w-full py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent"
               />
             </div>
             {/* Email Field */}
@@ -134,7 +134,7 @@ export default function Register() {
                 name="email"
                 placeholder="example@email.com"
                 required
-                className="input text-sm w-full py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2C5F5D] focus:border-transparent"
+                className="input text-sm w-full py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent"
               />
             </div>
 
@@ -148,7 +148,7 @@ export default function Register() {
                   placeholder="At least 8 characters"
                   required
                   onChange={handleInputChange}
-                  className="input text-sm w-full py-2 px-4 pr-12 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2C5F5D] focus:border-transparent"
+                  className="input text-sm w-full py-2 px-4 pr-12 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent"
                 />
                 {/* Eye toggle button */}
                 <button
