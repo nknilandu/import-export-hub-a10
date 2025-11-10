@@ -15,11 +15,15 @@ import MyExports from '../pages/MyExports/MyExports';
 import MyImports from '../pages/MyImports/MyImports';
 import AuthProvider from '../provider/AuthProvider';
 import AddExport from '../pages/AddExport/AddExport';
+import PrivateRoute from '../provider/PrivateRoute';
+import AppNotFound from '../pages/ErrorPages/AppNotFound';
+import ProductDetails from '../pages/ProductDetails/ProductDetails';
 
 const router = createBrowserRouter([
   {
     path: "/",
     Component: Root,
+    errorElement: <AppNotFound></AppNotFound>,
     children: [
       { 
         index: true, 
@@ -39,16 +43,36 @@ const router = createBrowserRouter([
         Component: AllProducts
       },
       {
+        path: "/product-details/:id",
+        element: (
+          <PrivateRoute>
+            <ProductDetails></ProductDetails>
+          </PrivateRoute>
+        ),
+      },
+      {
         path: '/my-exports',
-        Component: MyExports
+        element: <PrivateRoute>
+          <MyExports></MyExports>
+        </PrivateRoute>
       },
       {
         path: '/my-imports',
-        Component: MyImports
+        element: <PrivateRoute>
+          <MyImports></MyImports>
+        </PrivateRoute>
       },
       {
         path: '/add-export',
-        Component: AddExport
+        element: <PrivateRoute>
+          <AddExport></AddExport>
+        </PrivateRoute>
+      },
+      {
+        path: '/add-export',
+        element: <PrivateRoute>
+          <AddExport></AddExport>
+        </PrivateRoute>
       },
       {
         path: "*",
