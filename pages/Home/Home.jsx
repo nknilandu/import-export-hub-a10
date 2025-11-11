@@ -12,6 +12,7 @@ import { RiGlobalLine } from "react-icons/ri";
 import { MdOutlineWatchLater } from "react-icons/md";
 import ExportProductCard from "../../components/ExportProductCard/ExportProductCard";
 import LoadingComponent from "../Loading/LoadingComponent";
+import NoDataFound from "../../components/NoDataFound/NoDataFound";
 
 const Home = () => {
   const [products, setProducts] = useState([]);
@@ -52,14 +53,14 @@ const Home = () => {
 
         {fallback ? (
           <LoadingComponent></LoadingComponent>
-        ) : (
+        ) : products.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 overflow-hidden my-5 pb-9">
-            {
-              products.map(item => (
-                <ProductCard key={item._id} item={item}></ProductCard>
-              ))
-            }
+            {products.map((item) => (
+              <ProductCard key={item._id} item={item}></ProductCard>
+            ))}
           </div>
+        ) : (
+          <NoDataFound></NoDataFound>
         )}
 
         {/* ready to start */}
