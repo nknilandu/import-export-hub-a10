@@ -7,6 +7,7 @@ import Swal from "sweetalert2";
 
 export default function Navbar() {
   const { user, setUser, loading, logOut } = useContext(AuthContext);
+  // console.log(user)
 
   const handleLogOut = () => {
     // sweetalert2 start
