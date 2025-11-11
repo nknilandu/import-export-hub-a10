@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Banner from "../../components/Banner/Banner";
 import ProductCard from "../../components/ProductCard/ProductCard";
 import { Link } from "react-router";
@@ -11,8 +11,21 @@ import { LuUsers } from "react-icons/lu";
 import { RiGlobalLine } from "react-icons/ri";
 import { MdOutlineWatchLater } from "react-icons/md";
 import ExportProductCard from "../../components/ExportProductCard/ExportProductCard";
+import LoadingComponent from "../Loading/LoadingComponent";
 
 const Home = () => {
+  const [products, setProducts] = useState([]);
+  const [fallback, setFallback] = useState(true);
+
+  useEffect(() => {
+    fetch("http://localhost:3031/latest-product")
+      .then((res) => res.json())
+      .then((data) => {
+        setProducts(data);
+        setFallback(false);
+      });
+  }, []);
+
   return (
     <div>
       <Banner></Banner>
@@ -36,15 +49,18 @@ const Home = () => {
           </Link>
         </div>
         {/* latest product data */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 overflow-hidden my-5 pb-9">
-          <ProductCard></ProductCard>
-          <ProductCard></ProductCard>
-          <ProductCard></ProductCard>
-          <ProductCard></ProductCard>
-          <ProductCard></ProductCard>
-          <ProductCard></ProductCard>
-          <ExportProductCard></ExportProductCard>
-        </div>
+
+        {fallback ? (
+          <LoadingComponent></LoadingComponent>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 overflow-hidden my-5 pb-9">
+            {
+              products.map(item => (
+                <ProductCard key={item._id} item={item}></ProductCard>
+              ))
+            }
+          </div>
+        )}
 
         {/* ready to start */}
         <div className="bg-base-300 gap-3 rounded-xl flex flex-col justify-center items-center py-10 px-5 my-15">

@@ -1,12 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Navigate, NavLink } from "react-router";
 import { MdFileDownloadDone } from "react-icons/md";
 import { RxCross2 } from "react-icons/rx";
 import Swal from "sweetalert2";
+import { AuthContext } from "../../provider/AuthProvider";
 
 const AddExport = () => {
 
+  const { user } = useContext(AuthContext)
 
+  //action
   const handleSubmit = (e) => {
     e.preventDefault();
     const productName = e.target.name.value;
@@ -15,8 +18,12 @@ const AddExport = () => {
     const originCountry = e.target.origin.value;
     const rating = e.target.rating.value;
     const quantity = e.target.quantity.value;
-    const description = e.target.description.value
+    const description = e.target.description.value;
     const dateAdded = new Date();
+    const userName = user.displayName;
+    const userEmail = user.email;
+    const userPhotoURL = user.photoURL;
+
     // console.log(productName, productImage, price, originCountry, rating, quantity, dateAdded)
 
     const newProduct = {
@@ -27,7 +34,10 @@ const AddExport = () => {
       rating,
       quantity,
       dateAdded,
-      description
+      description,
+      userName,
+      userEmail,
+      userPhotoURL,
     };
 
     fetch("http://localhost:3031/add-product", {

@@ -34,7 +34,7 @@ const ProductCard = ({ item }) => {
 
           <p>{originCountry}</p>
         </div>
-        <h3 className="text-xl font-semibold">{productName}</h3>
+        <h3 className="text-xl font-semibold line-clamp-1">{productName}</h3>
         <p className=" text-sm line-clamp-3">{description}</p>
 
         <div className="flex gap-1 items-center text-yellow-400">
