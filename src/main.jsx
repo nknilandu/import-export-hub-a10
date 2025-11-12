@@ -18,6 +18,7 @@ import AddExport from "../pages/AddExport/AddExport";
 import PrivateRoute from "../provider/PrivateRoute";
 import AppNotFound from "../pages/ErrorPages/AppNotFound";
 import ProductDetails from "../pages/ProductDetails/ProductDetails";
+import UpdateExport from "../pages/UpdateExport/UpdateExport";
 
 const router = createBrowserRouter([
   {
@@ -47,6 +48,14 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <ProductDetails></ProductDetails>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/update-product/:id",
+        element: (
+          <PrivateRoute>
+            <UpdateExport></UpdateExport>
           </PrivateRoute>
         ),
       },

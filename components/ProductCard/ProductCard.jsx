@@ -17,7 +17,7 @@ const ProductCard = ({ item }) => {
     description
   } = item;
 
-  console.log(item);
+  // console.log(item);
 
   return (
     <div className="bg-base-100 w-full rounded-xl shadow-md hover:shadow-xl transition-all duration-300 group overflow-hidden flex flex-col">

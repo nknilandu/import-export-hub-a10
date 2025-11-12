@@ -53,7 +53,6 @@ const ProductDetails = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setIsProcessing(true)
   };
 
   if (loading) {
@@ -260,7 +259,7 @@ const ProductDetails = () => {
                     Total Price:
                   </span>
                   <span className="font-semibold text-secondary text-lg">
-                    $ {price * takeQuantity}
+                    $ {(price * takeQuantity).toFixed(2)}
                   </span>
                 </div>
               </div>

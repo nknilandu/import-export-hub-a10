@@ -1,4 +1,6 @@
+import { useContext, useEffect, useState } from "react";
 import { FaRegStar } from "react-icons/fa6";
+import { AuthContext } from "../../provider/AuthProvider";
 
 
 const tableData = [
@@ -16,6 +18,20 @@ const tableData = [
 
 
 const MyImports = () => {
+  
+  const { user } = useContext(AuthContext)
+  const [products, setProducts] = useState([])
+
+  useEffect(()=>{
+    fetch(`http://localhost:3031/my-products?email=${user.email}`)
+      .then(res => res.json())
+      .then(data => {
+        setProducts(data)
+      })
+  }, [user])
+
+  console.log(products)
+
   return (
     <div className="max-w-7xl mx-auto px-4 py-5">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between items-start gap-3 ">
@@ -48,8 +64,10 @@ const MyImports = () => {
 
         {/* body */}
         <tbody>
-          {tableData.map((item, index) => (
-            <tr key={item.id}>
+          {
+          // =========================
+          products.map((item, index) => (
+            <tr key={item._id}>
               <th>{index + 1}</th>
               <td>
                 <div className="flex items-center gap-3">
@@ -61,10 +79,10 @@ const MyImports = () => {
                   <div className="font-semibold">{item.name}</div>
                 </div>
               </td>
-              <td>{item.quantity}</td>
-              <td>${item.unitPrice.toFixed(2)}</td>
-              <td>${item.totalValue.toFixed(2)}</td>
-              <td>{item.importDate}</td>
+              <td>{}</td>
+              <td>{}</td>
+              <td>{}</td>
+              <td>{}</td>
               <td><div className="flex items-center gap-2"><FaRegStar className="text-yellow-500"/> {item.rating}</div></td>
               <td>
                 <button className="btn btn-ghost btn-xs underline text-primary">
@@ -72,7 +90,9 @@ const MyImports = () => {
                 </button>
               </td>
             </tr>
-          ))}
+          ))
+          // ======================
+          }
         </tbody>
       </table>
     </div>

@@ -6,43 +6,67 @@ import { HiOutlineLocationMarker } from "react-icons/hi";
 import { LuEye } from "react-icons/lu";
 import { LuTrash2 } from "react-icons/lu";
 import { FiEdit } from "react-icons/fi";
+import Swal from "sweetalert2";
 
+const ExportProductCard = ({ item, setProducts, products }) => {
+  const { _id, productName, productImage, price, rating, quantity, dateAdded } = item;
+  const formattedDate = new Date(dateAdded).toLocaleDateString('en-CA');
 
-const ExportProductCard = () => {
-  const itemData = {
-    image: "https://example.com/images/service1.jpg",
-    serviceName: "Premium Car Wash",
-    price: 49.99,
-    rating: 4.7,
-    slotsAvailable: 12,
-    description:
-      "A complete premium car wash service including interior cleaning, waxing, and tire shine.",
-    category: "Automotive",
-    serviceId: "svc12345",
+  const hanldeDelete = (id) => {
+    Swal.fire({
+      title: "Are you sure want to delete?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      theme: "auto",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // ======================= delete user
+        // console.log(id)
+        fetch(`http://localhost:3031/my-products/${id}`, {
+          method: "DELETE",
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            // console.log(data)
+            if (data.deletedCount) {
+              // success
+              Swal.fire({
+                title: "Successfully Product Deleted!",
+                icon: "success",
+                draggable: false,
+              });
+              // ============ update ui
+              const filterProduct = products.filter((item) => item._id !== id);
+              setProducts(filterProduct);
+            } else {
+              // error
+              Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Something went wrong!",
+              });
+            }
+          });
+        // ===========
+      }
+    });
   };
-
-  const {
-    image,
-    serviceName,
-    price,
-    rating,
-    slotsAvailable,
-    description,
-    category,
-    serviceId,
-  } = itemData;
 
   return (
     <div className="bg-base-100 w-full rounded-xl shadow-md hover:shadow-xl transition-all duration-300 group overflow-hidden flex flex-col">
       <div className="w-full h-52 bg-base-300 overflow-hidden">
         <img
-          src={image}
-          alt={serviceName}
+          src={productImage}
+          alt={productName}
           className="w-full object-cover group-hover:scale-110 transition-transform duration-300"
         />
       </div>
       <div className="p-6 flex-1 flex flex-col gap-2">
-        <h3 className="text-xl font-semibold">{serviceName}</h3>
+        <h3 className="text-xl font-semibold">{productName}</h3>
 
         <div className="flex gap-1 items-center text-yellow-400">
           <FaStar size={16} />
@@ -58,15 +82,15 @@ const ExportProductCard = () => {
         <div className="flex gap-2 flex-col">
           <div className="flex justify-between">
             <p>price: </p>
-            <h3 className="text-lg text-primary font-semibold">$24.99</h3>
+            <h3 className="text-lg text-primary font-semibold">$ {price}</h3>
           </div>
           <div className="flex justify-between">
             <p>Available: </p>
-            <h3 className="text-md text-green-500">50 unit</h3>
+            <h3 className="text-md text-green-500">{quantity} unit</h3>
           </div>
           <div className="flex justify-between">
             <p>Added: </p>
-            <h3 className="text-base-content/50">10/15/2024</h3>
+            <h3 className="text-base-content/50">{formattedDate}</h3>
           </div>
         </div>
 
@@ -74,23 +98,23 @@ const ExportProductCard = () => {
         <div className=" h-full w-full mt-2 flex items-end">
           <div className="flex gap-3 w-full">
             {/* edit */}
-            <NavLink
-              to={`/serviceDetails/${serviceId}`}
-              className="flex-1"
-            >
-              <button className="btn btn-outline btn-warning w-full rounded-md">
+            <NavLink to={`/update-product/${_id}`} className="flex-1">
+              <button className="btn btn-soft btn-warning w-full rounded-md">
                 <FiEdit size={18} /> Edit
               </button>
             </NavLink>
             {/* delete */}
-            <NavLink
-              to={`/serviceDetails/${serviceId}`}
-              className="flex-1"
-            >
-              <button className="btn btn-outline btn-error w-full rounded-md">
+
+            <div className="flex-1">
+              <button
+                onClick={() => {
+                  hanldeDelete(_id);
+                }}
+                className="btn btn-soft btn-error w-full rounded-md"
+              >
                 <LuTrash2 size={18} /> Delete
               </button>
-            </NavLink>
+            </div>
           </div>
         </div>
         {/* ================= */}

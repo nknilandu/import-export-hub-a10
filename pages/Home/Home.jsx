@@ -19,7 +19,7 @@ const Home = () => {
   const [fallback, setFallback] = useState(true);
 
   useEffect(() => {
-    fetch("http://localhost:3031/latest-product")
+    fetch("http://localhost:3031/latest-products")
       .then((res) => res.json())
       .then((data) => {
         setProducts(data);

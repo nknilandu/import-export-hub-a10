@@ -12,7 +12,7 @@ const AllProducts = () => {
   const [fallback2, setFallback2] = useState(false);
 
   useEffect(() => {
-    fetch("http://localhost:3031/all-product")
+    fetch("http://localhost:3031/all-products")
       .then((res) => res.json())
       .then((data) => {
         // console.log(data)

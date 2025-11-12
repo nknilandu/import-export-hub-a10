@@ -1,10 +1,24 @@
 import { IoMdAdd } from "react-icons/io";
 import ExportProductCard from "../../components/ExportProductCard/ExportProductCard";
 import { NavLink } from "react-router";
-
-
+import { useContext, useEffect, useState } from "react";
+import { AuthContext } from "../../provider/AuthProvider";
+import NoDataFound from "../../components/NoDataFound/NoDataFound";
 
 const MyExports = () => {
+  const { user } = useContext(AuthContext);
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    fetch(`http://localhost:3031/my-products?email=${user.email}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setProducts(data);
+      });
+  }, [user]);
+
+  // console.log(products)
+
   return (
     <div className="max-w-7xl mx-auto px-4 py-5">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between items-start gap-3 ">
@@ -17,21 +31,30 @@ const MyExports = () => {
           </p>
         </div>
         {/* add emports */}
-        <NavLink to='/add-export'>
-          <button className="btn btn-primary rounded-md"><IoMdAdd size={18}/> Add Export/Product</button>
+        <NavLink to="/add-export">
+          <button className="btn btn-primary rounded-md">
+            <IoMdAdd size={18} /> Add Export/Product
+          </button>
         </NavLink>
-        
+
         {/* ================== */}
       </div>
-      {/* ===== grid ======== */}
+
+      {products.length > 0 ? (
+        //  ===== grid ========
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 overflow-hidden my-5 pb-9 mt-10">
-            <ExportProductCard></ExportProductCard>
-            <ExportProductCard></ExportProductCard>
-            <ExportProductCard></ExportProductCard>
-            <ExportProductCard></ExportProductCard>
-            <ExportProductCard></ExportProductCard>
-            <ExportProductCard></ExportProductCard>
+          {products.map((item) => (
+            <ExportProductCard
+              key={item._id}
+              item={item}
+              products={products}
+              setProducts={setProducts}
+            ></ExportProductCard>
+          ))}
         </div>
+      ) : (
+        <NoDataFound></NoDataFound>
+      )}
     </div>
   );
 };

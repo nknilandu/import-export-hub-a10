@@ -1,23 +1,98 @@
-import React from 'react';
-import { NavLink } from 'react-router';
+import React, { useEffect, useState } from "react";
+import { NavLink, useParams } from "react-router";
 import { MdFileDownloadDone } from "react-icons/md";
 import { RxCross2 } from "react-icons/rx";
-
+import Swal from "sweetalert2";
+import LoadingPage from "../Loading/LoadingPage";
 
 const UpdateExport = () => {
+  const { id } = useParams();
+  const [product, setProduct] = useState(null);
+  const [loading, setLoading] = useState(true);
 
+  useEffect(() => {
+    fetch(`http://localhost:3031/product-details/${id}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setProduct(data);
+        setLoading(false);
+      });
+  }, [id]);
 
-    const handleSubmit = (e) => {
-        e.preventDefault()
-    }
+  const {
+    _id,
+    productName,
+    productImage,
+    price,
+    originCountry,
+    rating,
+    quantity,
+    description,
+  } = product || {};
 
-    return (
-        <div className="min-h-screen w-full flex items-center px-4 bg-base-200">
-      <title>Add Product</title>
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const productName = e.target.name.value;
+    const productImage = e.target.image.value;
+    const price = e.target.price.value;
+    const originCountry = e.target.origin.value;
+    const rating = e.target.rating.value;
+    const quantity = e.target.quantity.value;
+    const description = e.target.description.value;
+
+    // console.log(productName, productImage, price, originCountry, rating, quantity, dateAdded)
+
+    const updateProduct = {
+      productName,
+      productImage,
+      price,
+      originCountry,
+      rating,
+      quantity,
+      description,
+    };
+
+    fetch(`http://localhost:3031/update-product/${_id}`, {
+      method: "PATCH",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(updateProduct),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        // console.log(data)
+        if (data.modifiedCount) {
+          // success
+          Swal.fire({
+            title: "Successfully Product Updated!",
+            icon: "success",
+            draggable: false,
+          });
+        } else {
+          // error
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Something went wrong!",
+          });
+        }
+      });
+  };
+
+  if (loading) {
+    return <LoadingPage></LoadingPage>
+  }
+
+  return (
+    <div className="min-h-screen w-full flex items-center px-4 bg-base-200">
+      <title>Update Export</title>
       <div className="bg-base-100 rounded-2xl shadow-lg p-6 w-full max-w-md mx-auto">
         {/* Header */}
         <div className="text-center mb-4">
-          <h1 className="text-2xl font-bold mb-2">Add Your Product/Export</h1>
+          <h1 className="text-2xl font-bold mb-2">
+            Update Your Product/Export
+          </h1>
         </div>
 
         {/* Form */}
@@ -30,6 +105,7 @@ const UpdateExport = () => {
                 type="text"
                 name="name"
                 placeholder="your product name"
+                defaultValue={productName}
                 required
                 className="input text-sm w-full py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent"
               />
@@ -41,89 +117,105 @@ const UpdateExport = () => {
                 type="text"
                 name="image"
                 placeholder="image url"
-                required
-                className="input text-sm w-full py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent"
-              />
-            </div>
-            {/* Price (USD) */}
-            <div>
-              <label className="block label mb-1">Price (USD)</label>
-              <input
-                type="number"
-                name="price"
-                placeholder="00.0"
-                required
-                className="input text-sm w-full py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent"
-              />
-            </div>
-            {/* Origin Country */}
-            <div>
-              <label className="block label mb-1">Origin Country</label>
-              <input
-                type="text"
-                name="origin"
-                placeholder="country"
-                required
-                className="input text-sm w-full py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent"
-              />
-            </div>
-            {/* Rating */}
-            <div>
-              <label className="block label mb-1">Rating</label>
-              <input
-                type="number"
-                name="rating"
-                placeholder="5"
-                max={5} 
-                required
-                className="input text-sm w-full py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent"
-              />
-            </div>
-            {/* Available Quantity */}
-            <div>
-              <label className="block label mb-1">Available Quantity</label>
-              <input
-                type="number"
-                name="quantity"
-                placeholder="0"
+                defaultValue={productImage}
                 required
                 className="input text-sm w-full py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent"
               />
             </div>
 
-            
+            <div className="flex items-center justify-between gap-2">
+              {/* Price (USD) */}
+              <div>
+                <label className="block label mb-1">Price (USD)</label>
+                <input
+                  type="number"
+                  name="price"
+                  placeholder="00.0"
+                  step={0.01}
+                  defaultValue={price}
+                  required
+                  className="input text-sm w-full py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent"
+                />
+              </div>
+              {/* Origin Country */}
+              <div>
+                <label className="block label mb-1">Origin Country</label>
+                <input
+                  type="text"
+                  name="origin"
+                  placeholder="country"
+                  defaultValue={originCountry}
+                  required
+                  className="input text-sm w-full py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent"
+                />
+              </div>
+            </div>
+
+            <div className="flex items-center justify-between gap-2">
+              {/* Available Quantity */}
+              <div>
+                <label className="block label mb-1">Available Quantity</label>
+                <input
+                  type="number"
+                  name="quantity"
+                  placeholder="0"
+                  defaultValue={quantity}
+                  required
+                  className="input text-sm w-full py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent"
+                />
+              </div>
+              {/* Rating */}
+              <div>
+                <label className="block label mb-1">Rating</label>
+                <input
+                  type="number"
+                  name="rating"
+                  placeholder="0"
+                  max={5}
+                  step={0.1}
+                  defaultValue={rating}
+                  required
+                  className="input text-sm w-full py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent"
+                />
+              </div>
+            </div>
+            {/* description */}
+            <div>
+              <label className="block label mb-1">Description</label>
+              <textarea
+                name="description"
+                placeholder="Write your product details here"
+                rows={5}
+                maxLength={2000} // limits to 2000 characters
+                defaultValue={description}
+                required
+                className="textarea text-sm w-full py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent"
+              />
+            </div>
           </div>
-          
-
 
           {/* button */}
-        <div className=" h-full w-full mt-8 flex items-end">
-          <div className="flex gap-3 w-full">
-            {/* cancel */}
-            <NavLink
-              to='/my-exports'
-              className="flex-1"
-            >
-              <button className="btn btn-outline btn-primary w-full rounded-md">
-                <RxCross2  size={18} /> cancel
-              </button>
-            </NavLink>
-            {/* delete */}
-            <div
-              className="flex-1"
-            >
-              <button className="btn  btn-primary w-full rounded-md">
-                <MdFileDownloadDone  size={18} /> Update Product
-              </button>
+          <div className=" h-full w-full mt-8 flex items-end">
+            <div className="flex gap-3 w-full">
+              {/* cancel */}
+              <NavLink to="/my-exports" className="flex-1">
+                <button className="btn btn-outline btn-primary w-full rounded-md">
+                  <RxCross2 size={18} /> cancel
+                </button>
+              </NavLink>
+              {/* update */}
+              <div className="flex-1">
+                <button className="btn  btn-primary w-full rounded-md">
+                  <MdFileDownloadDone size={18} /> Update
+                </button>
+              </div>
             </div>
           </div>
-        </div>
-        {/* ================= */}
-
+          {/* ================= */}
         </form>
       </div>
     </div>
-    );
+  );
 };
 
 export default UpdateExport;
