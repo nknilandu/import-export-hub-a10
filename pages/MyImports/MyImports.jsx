@@ -1,36 +1,25 @@
 import { useContext, useEffect, useState } from "react";
 import { FaRegStar } from "react-icons/fa6";
 import { AuthContext } from "../../provider/AuthProvider";
-
-
-const tableData = [
-  {
-    id: 1,
-    name: "Premium Organic Coffee Beans",
-    img: "https://img.daisyui.com/images/profile/demo/2@94.webp",
-    quantity: 50,
-    unitPrice: 24.99,
-    totalValue: 1249.5,
-    importDate: "Nov 5, 2024",
-    rating: 4.8,
-  },
-];
-
+import { NavLink } from "react-router";
+import LoadingComponent from "../Loading/LoadingComponent";
+import NoDataFound from "../../components/NoDataFound/NoDataFound";
 
 const MyImports = () => {
-  
-  const { user } = useContext(AuthContext)
-  const [products, setProducts] = useState([])
+  const { user } = useContext(AuthContext);
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  useEffect(()=>{
-    fetch(`http://localhost:3031/my-products?email=${user.email}`)
-      .then(res => res.json())
-      .then(data => {
-        setProducts(data)
-      })
-  }, [user])
+  useEffect(() => {
+    fetch(`http://localhost:3031/import-product?email=${user.email}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setProducts(data);
+        setLoading(false);
+      });
+  }, [user]);
 
-  console.log(products)
+  console.log(products);
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-5">
@@ -46,57 +35,77 @@ const MyImports = () => {
       </div>
       {/* =================== */}
 
-       <div className="overflow-x-auto h-[60vh] my-10">
-      <table className="table">
-        {/* head */}
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Product</th>
-            <th>Quantity</th>
-            <th>Unit Price</th>
-            <th>Total Value</th>
-            <th>Import Date</th>
-            <th>Rating</th>
-            <th></th> {/* Details button column */}
-          </tr>
-        </thead>
+      <div className="overflow-x-auto my-10">
+        {loading ? (
+          <LoadingComponent></LoadingComponent>
+        ) : (
+          products.length>0 ? (
+            <div className="min-h-[60vh]">
+              <table className="table">
+            {/* head */}
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>Unit Price</th>
+                <th>Total Value</th>
+                <th>Import Date</th>
+                <th>Rating</th>
+                <th></th> {/* Details button column */}
+              </tr>
+            </thead>
 
-        {/* body */}
-        <tbody>
-          {
-          // =========================
-          products.map((item, index) => (
-            <tr key={item._id}>
-              <th>{index + 1}</th>
-              <td>
-                <div className="flex items-center gap-3">
-                  <div className="avatar">
-                    <div className="mask mask-squircle h-12 w-12">
-                      <img src={item.img} alt={item.name} />
-                    </div>
-                  </div>
-                  <div className="font-semibold">{item.name}</div>
-                </div>
-              </td>
-              <td>{}</td>
-              <td>{}</td>
-              <td>{}</td>
-              <td>{}</td>
-              <td><div className="flex items-center gap-2"><FaRegStar className="text-yellow-500"/> {item.rating}</div></td>
-              <td>
-                <button className="btn btn-ghost btn-xs underline text-primary">
-                  Details
-                </button>
-              </td>
-            </tr>
-          ))
-          // ======================
-          }
-        </tbody>
-      </table>
-    </div>
-
+            {/* body */}
+            <tbody>
+              {
+                // =========================
+                products.map((item, index) => (
+                  <tr key={item._id}>
+                    <th>{index + 1}</th>
+                    <td>
+                      <div className="flex items-center gap-3">
+                        <div className="avatar">
+                          <div className="mask mask-squircle h-12 w-12">
+                            <img
+                              src={item.productImage}
+                              alt={item.productName}
+                            />
+                          </div>
+                        </div>
+                        <div className="font-semibold">{item.productName}</div>
+                      </div>
+                    </td>
+                    <td>{item.takeQuantity}</td>
+                    <td>{item.unitPrice}</td>
+                    <td>{item.totalPrice}</td>
+                    <td>
+                      {new Date(item.importDate).toLocaleDateString("en-CA")}
+                    </td>
+                    <td>
+                      <div className="flex items-center gap-2">
+                        <FaRegStar className="text-yellow-500" /> {item.rating}
+                      </div>
+                    </td>
+                    <td>
+                      <NavLink to={`/product-details/${item.productId}`}>
+                        <button className="btn btn-ghost btn-xs underline text-primary">
+                          Details
+                        </button>
+                      </NavLink>
+                    </td>
+                  </tr>
+                ))
+                // ======================
+              }
+            </tbody>
+          </table>
+            </div>
+          ) : (
+            <NoDataFound></NoDataFound>
+          )
+        )}
+      </div>
 
       {/* =================== */}
     </div>

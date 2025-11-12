@@ -4,16 +4,19 @@ import { NavLink } from "react-router";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../provider/AuthProvider";
 import NoDataFound from "../../components/NoDataFound/NoDataFound";
+import LoadingComponent from "../Loading/LoadingComponent";
 
 const MyExports = () => {
   const { user } = useContext(AuthContext);
   const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetch(`http://localhost:3031/my-products?email=${user.email}`)
       .then((res) => res.json())
       .then((data) => {
         setProducts(data);
+        setLoading(false);
       });
   }, [user]);
 
@@ -40,7 +43,9 @@ const MyExports = () => {
         {/* ================== */}
       </div>
 
-      {products.length > 0 ? (
+      {loading ? (
+        <LoadingComponent></LoadingComponent>
+      ) : products.length > 0 ? (
         //  ===== grid ========
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 overflow-hidden my-5 pb-9 mt-10">
           {products.map((item) => (

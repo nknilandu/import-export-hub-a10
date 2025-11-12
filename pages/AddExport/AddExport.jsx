@@ -52,6 +52,7 @@ const AddExport = () => {
         if (data.insertedId) {
           // success
           Swal.fire({
+            theme: "auto",
             title: "Successfully Product Added!",
             icon: "success",
             draggable: false,
@@ -62,6 +63,7 @@ const AddExport = () => {
         } else {
           // error
           Swal.fire({
+            theme: "auto",
             icon: "error",
             title: "Oops...",
             text: "Something went wrong!",

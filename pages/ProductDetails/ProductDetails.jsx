@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router";
 import LoadingPage from "../Loading/LoadingPage";
 import { FaRegStar } from "react-icons/fa6";
@@ -8,6 +8,8 @@ import { FiBox } from "react-icons/fi";
 import { LuShield } from "react-icons/lu";
 import { FiTruck } from "react-icons/fi";
 import { HiOutlineShoppingCart } from "react-icons/hi";
+import { AuthContext } from "../../provider/AuthProvider";
+import Swal from "sweetalert2";
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -15,6 +17,7 @@ const ProductDetails = () => {
   const [loading, setLoading] = useState(true);
   const [takeQuantity, setTakeQuantity] = useState(1);
   const [disableButton, setDisableButton] = useState(true);
+  const { user } = useContext(AuthContext);
 
   useEffect(() => {
     fetch(`http://localhost:3031/product-details/${id}`)
@@ -43,7 +46,7 @@ const ProductDetails = () => {
       if (quantityField > 0 && quantityField <= quantity) {
         setDisableButton(true);
       } else {
-        setDisableButton(false)
+        setDisableButton(false);
       }
     } else {
       setTakeQuantity(0);
@@ -51,8 +54,51 @@ const ProductDetails = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  // handle modal submit
+  const handleModalSubmit = (e) => {
     e.preventDefault();
+
+    const newImportProduct = {
+      productId: _id,
+      productName: productName,
+      productImage: productImage,
+      importDate: new Date(),
+      unitPrice: price,
+      takeQuantity: takeQuantity,
+      totalPrice: (price * takeQuantity).toFixed(2),
+      rating: rating,
+      customerEmail: user.email,
+      customerName: user.displayName,
+      customerPhotoURL: user.photoURL,
+    };
+
+    fetch("http://localhost:3031/import-product", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(newImportProduct),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        // console.log(data)
+        document.getElementById("import_product_modal").close();
+        if (data.insertedId) {
+          Swal.fire({
+            theme: "auto",
+            title: "Successfully Product Imported!",
+            icon: "success",
+            draggable: false,
+          });
+        } else {
+          Swal.fire({
+            theme: "auto",
+            icon: "error",
+            title: "Oops...",
+            text: "Something went wrong!",
+          });
+        }
+      });
   };
 
   if (loading) {
@@ -222,7 +268,7 @@ const ProductDetails = () => {
           </div>
 
           {/*================== form  ===================*/}
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleModalSubmit}>
             {/* Quantity Input */}
             <div className="mb-6">
               <label className="label">
@@ -258,7 +304,7 @@ const ProductDetails = () => {
                   <span className="font-semibold text-foreground">
                     Total Price:
                   </span>
-                  <span className="font-semibold text-secondary text-lg">
+                  <span className="font-semibold text-primary text-lg">
                     $ {(price * takeQuantity).toFixed(2)}
                   </span>
                 </div>
@@ -267,7 +313,7 @@ const ProductDetails = () => {
             {/* Action Buttons */}
             <div className="flex space-x-3">
               <button
-                className="btn btn-outline flex-1 rounded-lg"
+                className="btn btn-soft btn-secondary flex-1 rounded-lg"
                 onClick={() =>
                   document.getElementById("import_product_modal").close()
                 }
@@ -275,10 +321,10 @@ const ProductDetails = () => {
                 Cancel
               </button>
               <button
-                className="btn btn-primary flex-1 rounded-lg"
+                className="btn btn-secondary flex-1 rounded-lg"
                 disabled={!disableButton}
               >
-                "Import Now"
+                Import Now
               </button>
             </div>
           </form>

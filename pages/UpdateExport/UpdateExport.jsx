@@ -65,6 +65,7 @@ const UpdateExport = () => {
         if (data.modifiedCount) {
           // success
           Swal.fire({
+            theme: "auto",
             title: "Successfully Product Updated!",
             icon: "success",
             draggable: false,
@@ -72,6 +73,7 @@ const UpdateExport = () => {
         } else {
           // error
           Swal.fire({
+            theme: "auto",
             icon: "error",
             title: "Oops...",
             text: "Something went wrong!",

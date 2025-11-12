@@ -35,6 +35,7 @@ const ExportProductCard = ({ item, setProducts, products }) => {
             if (data.deletedCount) {
               // success
               Swal.fire({
+                theme: "auto",
                 title: "Successfully Product Deleted!",
                 icon: "success",
                 draggable: false,
@@ -45,6 +46,7 @@ const ExportProductCard = ({ item, setProducts, products }) => {
             } else {
               // error
               Swal.fire({
+                theme: "auto",
                 icon: "error",
                 title: "Oops...",
                 text: "Something went wrong!",
