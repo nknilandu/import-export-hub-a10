@@ -65,7 +65,7 @@ const ProductDetails = () => {
       importDate: new Date(),
       unitPrice: price,
       takeQuantity: takeQuantity,
-      totalPrice: (price * takeQuantity).toFixed(2),
+      totalPrice: Number((price * takeQuantity).toFixed(2)),
       rating: rating,
       customerEmail: user.email,
       customerName: user.displayName,
@@ -97,6 +97,7 @@ const ProductDetails = () => {
             title: "Oops...",
             text: "Something went wrong!",
           });
+          console.log(data);
         }
       });
   };

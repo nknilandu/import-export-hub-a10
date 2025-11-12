@@ -41,9 +41,9 @@ export default function Banner() {
                 <p className="text-sm leading-snug  sm:text-xl max-w-11/12 text-center">
                   Build reliable global partnerships and expand your reach effortlessly. Simplify trade and unlock new opportunities across international markets.  
                 </p>
-                <NavLink to="/services">
+                <NavLink to="/all-products">
                   <button className="btn btn-outline rounded-full ">
-                    Brouse Products
+                    Browse Products
                   </button>
                 </NavLink>
               </div>

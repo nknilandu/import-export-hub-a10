@@ -1,2 +1,7 @@
 @import "tailwindcss";
 @plugin "daisyui";
+@plugin "daisyui/theme" {
+    themes: light --corporate, dark --dracula;
+}
+@custom-variant dark (&:where([data-theme=night], [data-theme=night] *));
+

@@ -14,10 +14,10 @@ const AddExport = () => {
     e.preventDefault();
     const productName = e.target.name.value;
     const productImage = e.target.image.value;
-    const price = e.target.price.value;
+    const price = Number(e.target.price.value);
     const originCountry = e.target.origin.value;
-    const rating = e.target.rating.value;
-    const quantity = e.target.quantity.value;
+    const rating = Number(e.target.rating.value);
+    const quantity = Number(e.target.quantity.value);
     const description = e.target.description.value;
     const dateAdded = new Date();
     const userName = user.displayName;
