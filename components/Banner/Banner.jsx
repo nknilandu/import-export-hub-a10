@@ -64,7 +64,7 @@ export default function Banner() {
                 <p className="text-sm leading-snug  sm:text-xl max-w-11/12 text-center">
                   Source high-quality products from trusted exporters across the globe, streamline your supply chain, and expand your reach in international markets.  
                 </p>
-                <NavLink to="/services">
+                <NavLink to="/all-products">
                   <button className="btn btn-outline rounded-full ">
                     Brouse Products
                   </button>
@@ -86,7 +86,7 @@ export default function Banner() {
                 <p className="text-sm leading-snug  sm:text-xl max-w-11/12 text-center">
                   Expand into international markets and scale your export business with ease. Our platform helps you connect, trade smarter, and grow globally.
                 </p>
-                <NavLink to="/services">
+                <NavLink to="/all-products">
                   <button className="btn btn-outline rounded-full ">
                     Brouse Products
                   </button>

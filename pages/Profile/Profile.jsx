@@ -42,9 +42,9 @@ export default function Profile() {
     <div
       data-aos="fade-up"
       data-aos-delay="100"
-      className="h-[80vh] flex items-center justify-center overflow-hidden"
+      className="min-h-[80vh] flex items-center justify-center overflow-hidden py-5"
     >
-      <title>User Profile</title>
+      <title>User Profile | Import Export Hub</title>
       <div className=" bg-base-100 rounded-2xl shadow-lg max-w-lg py-8 px-5 mx-4">
         <div className="flex items-center justify-center gap-4">
           <div className="avatar">

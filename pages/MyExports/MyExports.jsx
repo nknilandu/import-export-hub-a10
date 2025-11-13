@@ -15,7 +15,7 @@ const MyExports = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`http://localhost:3031/my-products?email=${user.email}`, {
+    fetch(`https://import-export-hub-api-server.vercel.app/my-products?email=${user.email}`, {
       headers: {
         authorization: `Bearer ${user.accessToken}`
       }
@@ -47,6 +47,7 @@ const MyExports = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-5">
+      <title>My Export | Import Export Hub</title>
       <div className="flex flex-col sm:flex-row sm:items-center justify-between items-start gap-3 ">
         <div className="">
           <h2 className="text-3xl font-bold text-foreground mb-2">

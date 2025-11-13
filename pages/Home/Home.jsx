@@ -19,7 +19,7 @@ const Home = () => {
   const [fallback, setFallback] = useState(true);
 
   useEffect(() => {
-    fetch("http://localhost:3031/latest-products")
+    fetch("https://import-export-hub-api-server.vercel.app/latest-products")
       .then((res) => res.json())
       .then((data) => {
         setProducts(data);
@@ -29,6 +29,7 @@ const Home = () => {
 
   return (
     <div>
+      <title>Home | Import Export Hub</title>
       <Banner></Banner>
 
       <div className="max-w-7xl mx-auto px-4">

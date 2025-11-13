@@ -13,7 +13,7 @@ const MyImports = () => {
 
   // console.log(user.accessToken)
   useEffect(() => {
-    fetch(`http://localhost:3031/import-product?email=${user.email}`, {
+    fetch(`https://import-export-hub-api-server.vercel.app/import-product?email=${user.email}`, {
       headers: {
         authorization: `Bearer ${user.accessToken}`
       }
@@ -29,6 +29,7 @@ const MyImports = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-5">
+      <title>My Import | Import Export Hub</title>
       <div className="flex flex-col sm:flex-row sm:items-center justify-between items-start gap-3 ">
         <div className="">
           <h2 className="text-3xl font-bold text-foreground mb-2">

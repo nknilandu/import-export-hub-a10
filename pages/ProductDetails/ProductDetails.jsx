@@ -21,7 +21,7 @@ const ProductDetails = () => {
   const [availableQuantity, setAvailableQuantity] = useState(0);
 
   useEffect(() => {
-    fetch(`http://localhost:3031/product-details/${id}`, {
+    fetch(`https://import-export-hub-api-server.vercel.app/product-details/${id}`, {
       headers: {
         authorization: `Bearer ${user.accessToken}`,
       },
@@ -67,7 +67,7 @@ const ProductDetails = () => {
       customerPhotoURL: user.photoURL,
     };
 
-    fetch("http://localhost:3031/import-product", {
+    fetch("https://import-export-hub-api-server.vercel.app/import-product", {
       method: "POST",
       headers: {
         "content-type": "application/json",

@@ -93,6 +93,11 @@ export default function Navbar() {
           My Imports
         </NavLink>
       </li>
+      <li>
+        <NavLink className={linkClass} to="/add-export">
+          Add Product
+        </NavLink>
+      </li>
     </ul>
   );
 
@@ -124,7 +129,7 @@ export default function Navbar() {
 
             <Link className="text-xl flex items-center gap-2">
               {/* <img className='h-5.5' src={logo} alt="logo" /> */}
-              <FiBox />
+              <FiBox className="hidden sm:flex text-primary"/>
               <h1 className="font-bold">
                 Import <span className="text-primary">Export</span> Hub
               </h1>

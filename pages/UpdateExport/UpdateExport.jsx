@@ -13,7 +13,7 @@ const UpdateExport = () => {
   const { user } = useContext(AuthContext);
 
   useEffect(() => {
-    fetch(`http://localhost:3031/product-details/${id}`, {
+    fetch(`https://import-export-hub-api-server.vercel.app/product-details/${id}`, {
       headers: {
         authorization: `Bearer ${user.accessToken}`,
       },
@@ -58,7 +58,7 @@ const UpdateExport = () => {
       description,
     };
 
-    fetch(`http://localhost:3031/update-product/${_id}`, {
+    fetch(`https://import-export-hub-api-server.vercel.app/update-product/${_id}`, {
       method: "PATCH",
       headers: {
         "content-type": "application/json",
@@ -95,8 +95,8 @@ const UpdateExport = () => {
   }
 
   return (
-    <div className="min-h-screen w-full flex items-center px-4 bg-base-200">
-      <title>Update Export</title>
+    <div className="min-h-screen w-full flex items-center p-4 bg-base-200">
+      <title>Update Product | Import Export Hub</title>
       <div className="bg-base-100 rounded-2xl shadow-lg p-6 w-full max-w-md mx-auto">
         {/* Header */}
         <div className="text-center mb-4">

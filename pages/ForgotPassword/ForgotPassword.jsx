@@ -24,7 +24,7 @@ export default function ForgotPassword() {
 
   return (
     <div className="h-screen w-full flex items-center px-4 bg-base-200">
-      <title>Warm Paws - ForgotPassword</title>
+      <title>Forgot Password | Import Export Hub</title>
       <div className="bg-base-100 rounded-2xl shadow-lg p-6 w-full max-w-md mx-auto">
         {/* Header */}
         <div className="text-center mb-4">
@@ -79,7 +79,7 @@ export default function ForgotPassword() {
         {/* Copyright */}
         <div className="text-center mt-10">
           <p className="text-gray-400 text-xs">
-            © 2025 ALL RIGHTS RESERVED WarmPows
+            © 2025 ALL RIGHTS RESERVED
           </p>
         </div>
       </div>

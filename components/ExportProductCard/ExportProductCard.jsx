@@ -31,7 +31,7 @@ const ExportProductCard = ({ item, setProducts, products }) => {
       if (result.isConfirmed) {
         // ======================= delete user
         // console.log(id)
-        fetch(`http://localhost:3031/my-products/${id}`, {
+        fetch(`https://import-export-hub-api-server.vercel.app/my-products/${id}`, {
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",

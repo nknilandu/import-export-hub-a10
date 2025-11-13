@@ -12,7 +12,7 @@ const AllProducts = () => {
   const [fallback2, setFallback2] = useState(false);
 
   useEffect(() => {
-    fetch("http://localhost:3031/all-products")
+    fetch("https://import-export-hub-api-server.vercel.app/all-products")
       .then((res) => res.json())
       .then((data) => {
         // console.log(data)
@@ -26,7 +26,7 @@ const AllProducts = () => {
     e.preventDefault();
     const searchText = e.target.search.value;
     setFallback2(true);
-    fetch(`http://localhost:3031/search?search=${searchText}`)
+    fetch(`https://import-export-hub-api-server.vercel.app/search?search=${searchText}`)
       .then((res) => res.json())
       .then((data) => {
         setProducts(data);
@@ -40,6 +40,7 @@ const AllProducts = () => {
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-6">
+      <title>All products | Import Export Hub</title>
       <div className="">
         <h2 className="text-3xl font-bold text-foreground mb-2">
           All Products
