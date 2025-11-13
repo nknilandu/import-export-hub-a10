@@ -95,7 +95,7 @@ const UpdateExport = () => {
   }
 
   return (
-    <div className="min-h-screen w-full flex items-center p-4 bg-base-200">
+    <div data-aos="fade-up" data-aos-delay="100" className="min-h-screen w-full flex items-center p-4 bg-base-200">
       <title>Update Product | Import Export Hub</title>
       <div className="bg-base-100 rounded-2xl shadow-lg p-6 w-full max-w-md mx-auto">
         {/* Header */}

@@ -41,7 +41,7 @@ const AllProducts = () => {
   return (
     <div className="mx-auto max-w-7xl px-4 py-6">
       <title>All products | Import Export Hub</title>
-      <div className="">
+      <div data-aos="fade-up" data-aos-delay="100" className="">
         <h2 className="text-3xl font-bold text-foreground mb-2">
           All Products
         </h2>
@@ -50,7 +50,7 @@ const AllProducts = () => {
         </p>
       </div>
       {/* searchbar */}
-      <div className="w-full bg-base-100 p-5 rounded-xl shadow my-5">
+      <div data-aos="fade-up" data-aos-delay="100" className="w-full bg-base-100 p-5 rounded-xl shadow my-5">
         <div className="flex flex-col sm:flex-row justify-between items-center gap-2">
           {/* ================ */}
           <form onSubmit={handleSearch} className="flex gap-2">
@@ -82,7 +82,7 @@ const AllProducts = () => {
       {fallback2 ? (
         <LoadingComponent></LoadingComponent>
       ) : products.length > 0 ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 overflow-hidden my-5 pb-9 mt-10">
+        <div data-aos="fade-up" data-aos-delay="100" className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 overflow-hidden my-5 pb-9 mt-10">
           {products.map((item) => (
             <ProductCard key={item?._id} item={item}></ProductCard>
           ))}

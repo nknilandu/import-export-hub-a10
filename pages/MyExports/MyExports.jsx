@@ -46,10 +46,10 @@ const MyExports = () => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-5">
+    <div  className="max-w-7xl mx-auto px-4 py-5">
       <title>My Export | Import Export Hub</title>
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between items-start gap-3 ">
-        <div className="">
+      <div data-aos="fade-up" data-aos-delay="100" className="flex flex-col sm:flex-row sm:items-center justify-between items-start gap-3 ">
+        <div  className="">
           <h2 className="text-3xl font-bold text-foreground mb-2">
             My Export Products
           </h2>
@@ -80,7 +80,7 @@ const MyExports = () => {
         <LoadingComponent></LoadingComponent>
       ) : products.length > 0 ? (
         //  ===== grid ========
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 overflow-hidden my-5 pb-9 mt-10">
+        <div data-aos="fade-up" data-aos-delay="100" className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 overflow-hidden my-5 pb-9 mt-10">
           {products.map((item) => (
             <ExportProductCard
               key={item._id}

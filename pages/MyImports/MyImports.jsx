@@ -30,7 +30,7 @@ const MyImports = () => {
   return (
     <div className="max-w-7xl mx-auto px-4 py-5">
       <title>My Import | Import Export Hub</title>
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between items-start gap-3 ">
+      <div data-aos="fade-up" data-aos-delay="100" className="flex flex-col sm:flex-row sm:items-center justify-between items-start gap-3 ">
         <div className="">
           <h2 className="text-3xl font-bold text-foreground mb-2">
             My Imports
@@ -42,13 +42,13 @@ const MyImports = () => {
       </div>
       {/* =================== */}
 
-      <div className="overflow-x-auto my-10">
+      <div data-aos="fade-up" data-aos-delay="100" className=" overflow-x-auto my-10">
         {loading ? (
           <LoadingComponent></LoadingComponent>
         ) : (
           products.length>0 ? (
-            <div className="min-h-[60vh]">
-              <table className="table">
+            <div  className="min-h-[60vh]">
+              <table  className="table">
             {/* head */}
             <thead>
               <tr>
