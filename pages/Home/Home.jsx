@@ -34,7 +34,7 @@ const Home = () => {
 
       <div className="max-w-7xl mx-auto px-4">
         {/* title */}
-        <div className="flex items-center justify-between mb-8 my-10">
+        <div data-aos="fade-up" data-aos-delay="100" className="flex items-center justify-between mb-8 my-10">
           <div>
             <h2 className="text-3xl font-bold text-foreground mb-2">
               Latest Products
@@ -55,7 +55,7 @@ const Home = () => {
         {fallback ? (
           <LoadingComponent></LoadingComponent>
         ) : products.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 overflow-hidden my-5 pb-9">
+          <div data-aos="fade-up" data-aos-delay="100" className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 overflow-hidden my-5 pb-9">
             {products.map((item) => (
               <ProductCard key={item._id} item={item}></ProductCard>
             ))}
@@ -65,7 +65,7 @@ const Home = () => {
         )}
 
         {/* ready to start */}
-        <div className="bg-base-300 gap-3 rounded-xl flex flex-col justify-center items-center py-10 px-5 my-15">
+        <div data-aos="fade-up" data-aos-delay="100" className="bg-base-300 gap-3 rounded-xl flex flex-col justify-center items-center py-10 px-5 my-15">
           <TbLeaf2 size={60} className="text-primary" />
           <div className="text-center my-2">
             <h2 className="text-3xl font-bold text-foreground">
@@ -90,7 +90,7 @@ const Home = () => {
         </div>
         {/* Why Choose Import Export Hub? */}
         <div>
-          <div className="text-center my-2">
+          <div data-aos="fade-up" data-aos-delay="100" className="text-center my-2">
             <h2 className="text-3xl font-bold text-foreground">
               Why Choose Import Export Hub?
             </h2>
@@ -99,7 +99,7 @@ const Home = () => {
               growth in mind
             </p>
           </div>
-          <div className="py-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div data-aos="fade-up" data-aos-delay="100" className="py-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {/* card 1 */}
             <div className="flex flex-col justify-center items-center gap-2 py-8 px-4 bg-base-100 w-full rounded-xl shadow-md hover:shadow-lg transition-all duration-300 group overflow-hidden">
               <LuShieldCheck className="text-secondary" size={30} />

@@ -21,6 +21,17 @@ import ProductDetails from "../pages/ProductDetails/ProductDetails";
 import UpdateExport from "../pages/UpdateExport/UpdateExport";
 import Profile from "../pages/Profile/Profile";
 
+
+import AOS from "aos";
+import "aos/dist/aos.css";
+
+// Initialize AOS globally (like Toastify)
+AOS.init({
+  duration: 1000,
+  once: true,
+  easing: "ease-in-out",
+});
+
 const router = createBrowserRouter([
   {
     path: "/",
