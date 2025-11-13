@@ -7,10 +7,15 @@ import { LuEye } from "react-icons/lu";
 import { LuTrash2 } from "react-icons/lu";
 import { FiEdit } from "react-icons/fi";
 import Swal from "sweetalert2";
+import { useContext } from "react";
+import { AuthContext } from "../../provider/AuthProvider";
 
 const ExportProductCard = ({ item, setProducts, products }) => {
-  const { _id, productName, productImage, price, rating, quantity, dateAdded } = item;
-  const formattedDate = new Date(dateAdded).toLocaleDateString('en-CA');
+  const { _id, productName, productImage, price, rating, quantity, dateAdded } =
+    item;
+  const formattedDate = new Date(dateAdded).toLocaleDateString("en-CA");
+
+  const { user } = useContext(AuthContext);
 
   const hanldeDelete = (id) => {
     Swal.fire({
@@ -28,6 +33,11 @@ const ExportProductCard = ({ item, setProducts, products }) => {
         // console.log(id)
         fetch(`http://localhost:3031/my-products/${id}`, {
           method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            authorization: `Bearer ${user.accessToken}`,
+            email: user.email,
+          },
         })
           .then((res) => res.json())
           .then((data) => {

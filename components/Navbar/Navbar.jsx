@@ -1,7 +1,7 @@
 import { NavLink, Link } from "react-router";
 import { RiMenu2Fill } from "react-icons/ri";
 import { FiBox } from "react-icons/fi";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { AuthContext } from "../../provider/AuthProvider";
 import Swal from "sweetalert2";
 
@@ -176,12 +176,14 @@ export default function Navbar() {
                 >
                   Log out
                 </button>
-                <img
+                <NavLink to='/profile'>
+                  <img
                   src={user.photoURL}
                   alt="profile"
                   title={user?.displayName}
                   className="h-9 w-9 bg-black/10 rounded-full object-cover border border-gray-500"
                 />
+                </NavLink>
               </div>
             ) : (
               <NavLink to="/auth/login">

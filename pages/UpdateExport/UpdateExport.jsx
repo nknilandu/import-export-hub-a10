@@ -1,23 +1,29 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { NavLink, useParams } from "react-router";
 import { MdFileDownloadDone } from "react-icons/md";
 import { RxCross2 } from "react-icons/rx";
 import Swal from "sweetalert2";
 import LoadingPage from "../Loading/LoadingPage";
+import { AuthContext } from "../../provider/AuthProvider";
 
 const UpdateExport = () => {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
+  const { user } = useContext(AuthContext);
 
   useEffect(() => {
-    fetch(`http://localhost:3031/product-details/${id}`)
+    fetch(`http://localhost:3031/product-details/${id}`, {
+      headers: {
+        authorization: `Bearer ${user.accessToken}`,
+      },
+    })
       .then((res) => res.json())
       .then((data) => {
         setProduct(data);
         setLoading(false);
       });
-  }, [id]);
+  }, [id, user]);
 
   const {
     _id,
@@ -56,6 +62,8 @@ const UpdateExport = () => {
       method: "PATCH",
       headers: {
         "content-type": "application/json",
+        authorization: `Bearer ${user.accessToken}`,
+        email: user.email,
       },
       body: JSON.stringify(updateProduct),
     })
@@ -83,7 +91,7 @@ const UpdateExport = () => {
   };
 
   if (loading) {
-    return <LoadingPage></LoadingPage>
+    return <LoadingPage></LoadingPage>;
   }
 
   return (

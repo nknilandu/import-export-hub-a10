@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router";
+import { NavLink, useParams } from "react-router";
 import LoadingPage from "../Loading/LoadingPage";
 import { FaRegStar } from "react-icons/fa6";
 import { FaStar } from "react-icons/fa6";
@@ -10,23 +10,29 @@ import { FiTruck } from "react-icons/fi";
 import { HiOutlineShoppingCart } from "react-icons/hi";
 import { AuthContext } from "../../provider/AuthProvider";
 import Swal from "sweetalert2";
+import { FiEdit } from "react-icons/fi";
 
 const ProductDetails = () => {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [takeQuantity, setTakeQuantity] = useState(1);
-  const [disableButton, setDisableButton] = useState(true);
   const { user } = useContext(AuthContext);
+  const [availableQuantity, setAvailableQuantity] = useState(0);
 
   useEffect(() => {
-    fetch(`http://localhost:3031/product-details/${id}`)
+    fetch(`http://localhost:3031/product-details/${id}`, {
+      headers: {
+        authorization: `Bearer ${user.accessToken}`,
+      },
+    })
       .then((res) => res.json())
       .then((data) => {
         setProduct(data);
+        setAvailableQuantity(data.quantity);
         setLoading(false);
       });
-  }, [id]);
+  }, [user, id]);
 
   const {
     _id,
@@ -35,23 +41,12 @@ const ProductDetails = () => {
     price,
     originCountry,
     rating,
-    quantity,
     description,
+    userEmail,
   } = product || {};
 
   const handleQuantityChange = (e) => {
-    const quantityField = Number(e.target.value);
-    if (quantityField) {
-      setTakeQuantity(quantityField);
-      if (quantityField > 0 && quantityField <= quantity) {
-        setDisableButton(true);
-      } else {
-        setDisableButton(false);
-      }
-    } else {
-      setTakeQuantity(0);
-      setDisableButton(false);
-    }
+     setTakeQuantity(Number(e.target.value));
   };
 
   // handle modal submit
@@ -76,6 +71,8 @@ const ProductDetails = () => {
       method: "POST",
       headers: {
         "content-type": "application/json",
+        authorization: `Bearer ${user.accessToken}`,
+        email: user.email,
       },
       body: JSON.stringify(newImportProduct),
     })
@@ -83,7 +80,12 @@ const ProductDetails = () => {
       .then((data) => {
         // console.log(data)
         document.getElementById("import_product_modal").close();
-        if (data.insertedId) {
+        e.target.reset();
+        if (data.result.insertedId) {
+          //success
+          setAvailableQuantity(availableQuantity - takeQuantity);
+
+          //dialog
           Swal.fire({
             theme: "auto",
             title: "Successfully Product Imported!",
@@ -172,7 +174,7 @@ const ProductDetails = () => {
                     <FiBox className="text-secondary" size={18} />
                     <div>
                       <h4 className="text-sm">Available Quantity</h4>
-                      <p className="font-semibold">{quantity} units</p>
+                      <p className="font-semibold">{availableQuantity} units</p>
                     </div>
                   </div>
                   {/* item 4 */}
@@ -219,14 +221,24 @@ const ProductDetails = () => {
               </div>
             </div>
             {/* ========== */}
-            <button
-              onClick={() =>
-                document.getElementById("import_product_modal").showModal()
-              }
-              className="btn btn-active btn-primary w-full rounded-lg mt-5"
-            >
-              <HiOutlineShoppingCart size={18} /> Import Now
-            </button>
+
+            {user.email === userEmail ? (
+              <NavLink to={`/update-product/${_id}`}>
+                <button className="btn btn-soft btn-primary w-full rounded-lg mt-5">
+                  <FiEdit size={18} /> Edit Product
+                </button>
+              </NavLink>
+            ) : (
+              <button
+                onClick={() =>
+                  document.getElementById("import_product_modal").showModal()
+                }
+                className="btn btn-active btn-primary w-full rounded-lg mt-5"
+              >
+                <HiOutlineShoppingCart size={18} /> Import Now
+              </button>
+            )}
+
             {/* ========== */}
           </div>
         </div>
@@ -263,7 +275,7 @@ const ProductDetails = () => {
               </h3>
               <p className="text-sm text-gray-500">$ {price} per unit</p>
               <p className="text-sm text-gray-500">
-                {quantity} units available
+                {availableQuantity} units available
               </p>
             </div>
           </div>
@@ -278,7 +290,7 @@ const ProductDetails = () => {
               <input
                 type="number"
                 min="1"
-                max={quantity}
+                max={availableQuantity}
                 defaultValue={takeQuantity}
                 required
                 onChange={handleQuantityChange}
@@ -286,7 +298,7 @@ const ProductDetails = () => {
                 className="input text-sm w-full py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent"
               />
               <p className="text-sm text-gray-500 mt-1">
-                Available: {quantity} units
+                Available: {availableQuantity} units
               </p>
             </div>
 
@@ -323,7 +335,7 @@ const ProductDetails = () => {
               </button>
               <button
                 className="btn btn-secondary flex-1 rounded-lg"
-                disabled={!disableButton}
+                disabled={availableQuantity === 0 || takeQuantity>availableQuantity || takeQuantity<1 }
               >
                 Import Now
               </button>

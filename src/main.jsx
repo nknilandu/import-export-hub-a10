@@ -19,6 +19,7 @@ import PrivateRoute from "../provider/PrivateRoute";
 import AppNotFound from "../pages/ErrorPages/AppNotFound";
 import ProductDetails from "../pages/ProductDetails/ProductDetails";
 import UpdateExport from "../pages/UpdateExport/UpdateExport";
+import Profile from "../pages/Profile/Profile";
 
 const router = createBrowserRouter([
   {
@@ -88,6 +89,14 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <AddExport></AddExport>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/profile",
+        element: (
+          <PrivateRoute>
+            <Profile></Profile>
           </PrivateRoute>
         ),
       },

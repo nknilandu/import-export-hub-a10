@@ -10,8 +10,14 @@ const MyImports = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
+
+  // console.log(user.accessToken)
   useEffect(() => {
-    fetch(`http://localhost:3031/import-product?email=${user.email}`)
+    fetch(`http://localhost:3031/import-product?email=${user.email}`, {
+      headers: {
+        authorization: `Bearer ${user.accessToken}`
+      }
+    })
       .then((res) => res.json())
       .then((data) => {
         setProducts(data);
@@ -19,7 +25,7 @@ const MyImports = () => {
       });
   }, [user]);
 
-  console.log(products);
+  // console.log(products);
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-5">
@@ -52,7 +58,7 @@ const MyImports = () => {
                 <th>Total Value</th>
                 <th>Import Date</th>
                 <th>Rating</th>
-                <th></th> {/* Details button column */}
+               
               </tr>
             </thead>
 
