@@ -50,7 +50,7 @@ const ExportProductCard = ({ item, setProducts, products }) => {
                 icon: "success",
                 draggable: false,
               });
-              // ============ update ui
+              // ============ update ui ============
               const filterProduct = products.filter((item) => item._id !== id);
               setProducts(filterProduct);
             } else {

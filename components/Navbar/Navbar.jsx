@@ -15,18 +15,16 @@ export default function Navbar() {
     const savedTheme = localStorage.getItem("theme") || "light";
     const html = document.querySelector("html");
     html.setAttribute("data-theme", savedTheme);
-
   }, []);
   const handleTheme = (e) => {
     const isChecked = e.target.checked;
     const html = document.querySelector("html");
-    const theme =  isChecked ? 'dark' : 'light'
+    const theme = isChecked ? "dark" : "light";
 
-      html.setAttribute("data-theme", theme);
-      localStorage.setItem("theme", theme);
-    
+    html.setAttribute("data-theme", theme);
+    localStorage.setItem("theme", theme);
   };
- //======================log out =================
+  //======================log out =================
   const handleLogOut = () => {
     // sweetalert2 start
     Swal.fire({
@@ -109,63 +107,36 @@ export default function Navbar() {
           <div className="navbar-start">
             {/* ================= */}
 
-
             <div className="drawer w-fit">
-  <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
-  <div className="drawer-content flex flex-col items-center justify-center">
-    {/* Page content here */}
-    <label htmlFor="my-drawer-3" className="lg:hidden p-2 mr-2">
-      <HiMenuAlt2 size={20}/>
-    </label>
-  </div>
-  <div className="drawer-side">
-    <label htmlFor="my-drawer-3" aria-label="close sidebar" className="drawer-overlay"></label>
-    <ul className="menu bg-base-200 min-h-full w-80 p-4">
-      {/* Sidebar content here */}
-      <ul className="space-y-3">
-        {
-        list
-      }
-      </ul>
-      
-    </ul>
-  </div>
-</div>
-
-
-
-
-
-
-
-
-
+              <input
+                id="my-drawer-3"
+                type="checkbox"
+                className="drawer-toggle"
+              />
+              <div className="drawer-content flex flex-col items-center justify-center">
+                {/* Page content here */}
+                <label htmlFor="my-drawer-3" className="lg:hidden p-2 mr-2">
+                  <HiMenuAlt2 size={20} />
+                </label>
+              </div>
+              <div className="drawer-side">
+                <label
+                  htmlFor="my-drawer-3"
+                  aria-label="close sidebar"
+                  className="drawer-overlay"
+                ></label>
+                <ul className="menu bg-base-200 min-h-full w-80 p-4">
+                  {/* Sidebar content here */}
+                  <ul className="space-y-3">{list}</ul>
+                </ul>
+              </div>
+            </div>
 
             {/* ================= */}
-            {/* <div className="dropdown">
-              <div tabIndex={0} role="button" className="mr-3 lg:hidden">
-                <div
-                  className="h-5 w-5 flex items-center"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <RiMenu2Fill className="text-lg" />
-                </div>
-              </div>
-              {
-                <ul
-                  tabIndex={0}
-                  className="menu menu-md dropdown-content bg-base-100 rounded-box z-50 mt-3 w-44 p-2 shadow"
-                >
-                  {list}
-                </ul>
-              }
-            </div> */}
 
             <Link className="text-xl flex items-center gap-2">
               {/* <img className='h-5.5' src={logo} alt="logo" /> */}
-              <FiBox className="hidden sm:flex text-primary"/>
+              <FiBox className="hidden sm:flex text-primary" />
               <h1 className="font-bold">
                 Import <span className="text-primary">Export</span> Hub
               </h1>
@@ -176,8 +147,7 @@ export default function Navbar() {
             <ul className=" flex flex-col lg:flex-row items-center gap-5 font-medium ">
               {list}
             </ul>
-            
-            </div>
+          </div>
           <div className="navbar-end">
             {/* =========== theme ============ */}
 
@@ -186,9 +156,7 @@ export default function Navbar() {
                 {/* this hidden checkbox controls the state */}
                 <input
                   type="checkbox"
-                  defaultChecked={
-                    localStorage.getItem('theme') === 'dark'
-                  }
+                  defaultChecked={localStorage.getItem("theme") === "dark"}
                   className="theme-controller"
                   onChange={handleTheme}
                 />
@@ -222,13 +190,13 @@ export default function Navbar() {
                 >
                   Log out
                 </button>
-                <NavLink to='/profile'>
+                <NavLink to="/profile">
                   <img
-                  src={user.photoURL}
-                  alt="profile"
-                  title={user?.displayName}
-                  className="h-9 w-9 bg-black/10 rounded-full object-cover border border-gray-500"
-                />
+                    src={user.photoURL}
+                    alt="profile"
+                    title={user?.displayName}
+                    className="h-9 w-9 bg-black/10 rounded-full object-cover border border-gray-500"
+                  />
                 </NavLink>
               </div>
             ) : (
