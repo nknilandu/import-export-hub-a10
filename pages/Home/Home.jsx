@@ -79,12 +79,18 @@ const Home = () => {
           </div>
           <div className="flex flex-col sm:flex-row gap-3 w-full justify-center items-center max-w-sm my-2 ">
             <button className="rounded-lg sm:flex-1 w-full btn btn-primary">
-              <FiSearch size={18} />
-              Brouse Product
+              <Link to='all-products' className="flex gap-2 justify-center items-center">
+                <FiSearch size={18} />
+                <p>Brouse Product</p>
+              </Link>
             </button>
             <button className="rounded-lg sm:flex-1 w-full btn btn-outline btn-primary">
-              <MdAdd size={18} />
-              Add your product
+              <Link to='/add-export' className="flex gap-2 justify-center items-center">
+                <MdAdd size={18} />
+                <p>Add your product</p>
+              </Link>
+              
+              
             </button>
           </div>
         </div>

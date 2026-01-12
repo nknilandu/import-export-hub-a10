@@ -10,12 +10,14 @@ import toast from "react-hot-toast";
 export default function Register() {
   const [showPassword, setShowPassword] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
+  const [btnLoading, setBtnLoading] = useState(false);
   const navigate = useNavigate();
 
-  const { createUser, setUser, updateUser, googleSignIn } = use(AuthContext);
+  const { createUser, user, setUser, updateUser, googleSignIn, loading } =
+    use(AuthContext);
 
   const location = useLocation();
-  console.log(location.state);
+  console.log("loading:", loading, "userX:", user);
 
   const googleHandler = () => {
     googleSignIn()
@@ -32,6 +34,8 @@ export default function Register() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setBtnLoading(true);
+
     const name = e.target.name.value;
     const avater = e.target.avater.value;
     const email = e.target.email.value;
@@ -39,6 +43,7 @@ export default function Register() {
 
     if (errorMsg) {
       toast.error("Please fix the password errors before registering.");
+      setBtnLoading(false);
       return;
     }
 
@@ -62,10 +67,12 @@ export default function Register() {
             toast.error(error.message);
             setUser(userData);
           });
+        setBtnLoading(false);
         navigate(`${location.state ? location.state : "/"}`);
       })
       .catch((error) => {
         toast.error(error.message);
+        setBtnLoading(false);
       });
   };
 
@@ -174,43 +181,47 @@ export default function Register() {
             type="submit"
             className="w-full p-2 mt-5 bg-primary hover:bg-primary/50 text-white font-md rounded-lg transition-colors"
           >
-            Register
+            {btnLoading ? (
+              <span className="loading loading-spinner loading-sm text-white"></span>
+            ) : (
+              <p>Register</p>
+            )}
           </button>
-
-          {/* Divider */}
-          <div className="flex items-center justify-center mt-5">
-            <div className="border-t border-gray-200 flex-1"></div>
-            <span className="px-4 text-gray-500 text-sm">Or</span>
-            <div className="border-t border-gray-200 flex-1"></div>
-          </div>
-
-          <div className="flex flex-col justify-center items-center gap-3">
-            {/* google button */}
-            <button
-              onClick={googleHandler}
-              type="submit"
-              className="w-full p-2 mt-2 bg-primary/10 hover:bg-primary/20 text-black/70 font-semibold text-sm rounded-lg transition-colors"
-            >
-              <div className="flex items-center justify-center gap-2 text-base-content/70">
-                <FcGoogle size={20} />
-                <span>Sign in with Google</span>
-              </div>
-            </button>
-          </div>
-
-          <div className="text-center mt-3">
-            <p className="text-base-content/50">
-              Already have an account?{" "}
-              <Link
-                state={location.state}
-                to="/auth/login"
-                className="hover:text-primary text-secondary font-semibold transition-colors"
-              >
-                Log in
-              </Link>
-            </p>
-          </div>
         </form>
+
+        {/* Divider */}
+        <div className="flex items-center justify-center mt-5">
+          <div className="border-t border-gray-200 flex-1"></div>
+          <span className="px-4 text-gray-500 text-sm">Or</span>
+          <div className="border-t border-gray-200 flex-1"></div>
+        </div>
+
+        <div className="flex flex-col justify-center items-center gap-3">
+          {/* google button */}
+          <button
+            onClick={googleHandler}
+            type="submit"
+            className="w-full p-2 mt-2 bg-primary/10 hover:bg-primary/20 text-black/70 font-semibold text-sm rounded-lg transition-colors"
+          >
+            <div className="flex items-center justify-center gap-2 text-base-content/70">
+              <FcGoogle size={20} />
+              <span>Sign in with Google</span>
+            </div>
+          </button>
+        </div>
+
+        <div className="text-center mt-3">
+          <p className="text-base-content/50">
+            Already have an account?{" "}
+            <Link
+              state={location.state}
+              to="/auth/login"
+              className="hover:text-primary text-secondary font-semibold transition-colors"
+            >
+              Log in
+            </Link>
+          </p>
+        </div>
 
         {/* Copyright */}
         <div className="text-center mt-10">

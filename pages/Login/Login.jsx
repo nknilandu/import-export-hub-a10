@@ -5,6 +5,7 @@ import { Link, useLocation, useNavigate } from "react-router";
 import { use, useState } from "react";
 import { AuthContext } from "../../provider/AuthProvider";
 import toast from "react-hot-toast";
+import { TiFlashOutline } from "react-icons/ti";
 
 export default function Login() {
   const location = useLocation();
@@ -14,6 +15,8 @@ export default function Login() {
   const [showPass, setShowPass] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
   const { loginUser, setUser, googleSignIn } = use(AuthContext);
+  const [loading, setLoading] = useState(false);
+  const [demoLoading, setDemoLoading] = useState(false);
 
   const togglePassword = () => {
     setShowPass(!showPass);
@@ -36,11 +39,13 @@ export default function Login() {
   // login
   const handleSubmit = (e) => {
     e.preventDefault();
+    setLoading(true);
     const email = e.target.email.value;
     const password = e.target.password.value;
 
     if (errorMsg) {
       toast.error("Please fix the password errors before login.");
+      setLoading(false);
       return;
     }
 
@@ -48,6 +53,7 @@ export default function Login() {
       .then((res) => {
         const user = res.user;
         setUser(user);
+        setLoading(false);
         toast.success("Successfully Loged in.");
         navigate(`${location.state ? location.state : "/"}`);
 
@@ -56,6 +62,7 @@ export default function Login() {
       .catch((error) => {
         toast.error(error.message);
         console.log(error.message);
+        setLoading(false);
       });
   };
   // google login
@@ -70,6 +77,27 @@ export default function Login() {
       .catch((error) => {
         toast.error(error.message);
         console.log(error.message);
+      });
+  };
+
+  //demo login
+  const demoEmail = "demo@test.com";
+  const demoPassword = "Aa12345678";
+
+  const demoLoginHandler = () => {
+    setDemoLoading(true);
+    loginUser(demoEmail, demoPassword)
+      .then((res) => {
+        const user = res.user;
+        setUser(user);
+        setDemoLoading(false);
+        toast.success("Successfully Loged in.");
+        navigate(`${location.state ? location.state : "/"}`);
+      })
+      .catch((error) => {
+        toast.error(error.message);
+        console.log(error.message);
+        setDemoLoading(false);
       });
   };
 
@@ -150,45 +178,65 @@ export default function Login() {
           {/* Submit login Button */}
           <button
             type="submit"
+            disabled={loading}
             className="w-full p-2 mt-2 bg-primary hover:bg-primary/50 text-white font-md rounded-lg transition-colors"
           >
-            Log in
+            {loading ? (
+              <span className="loading loading-spinner loading-sm text-white"></span>
+            ) : (
+              <p>Log in</p>
+            )}
           </button>
-
-          {/* Divider */}
-          <div className="flex items-center justify-center mt-5">
-            <div className="border-t border-gray-200 flex-1"></div>
-            <span className="px-4 text-base-content/50 text-sm">Or</span>
-            <div className="border-t border-gray-200 flex-1"></div>
-          </div>
-
-          <div className="flex flex-col justify-center items-center gap-3">
-            {/* google button */}
-            <button
-              onClick={googleHandler}
-              type="submit"
-              className="w-full p-2 mt-2 bg-primary/10 hover:bg-primary/20 text-black/70 font-semibold text-sm rounded-lg transition-colors"
-            >
-              <div className="flex items-center justify-center gap-2 text-base-content/70">
-                <FcGoogle size={20} />
-                <span>Sign in with Google</span>
-              </div>
-            </button>
-          </div>
-
-          <div className="text-center mt-3">
-            <p className="text-base-content/50 ">
-              Don't you have an account?{" "}
-              <Link
-                state={location.state}
-                to="/auth/register"
-                className="hover:text-primary text-secondary font-semibold transition-colors"
-              >
-                Sign up
-              </Link>
-            </p>
-          </div>
         </form>
+
+        {/* demo login */}
+        <button
+          onClick={demoLoginHandler}
+          disabled={demoLoading}
+          className="w-full p-2 mt-2 bg-primary/10 hover:bg-primary/20 text-black/70 font-semibold text-sm rounded-lg transition-colors"
+        >
+          {demoLoading ? (
+            <span className="loading loading-spinner loading-sm"></span>
+          ) : (
+            <div className="flex items-center justify-center gap-2 text-base-content/70">
+              <TiFlashOutline size={20} />
+              <span>Demo Login</span>
+            </div>
+          )}
+        </button>
+
+        {/* Divider */}
+        <div className="flex items-center justify-center mt-3">
+          <div className="border-t border-gray-200 flex-1"></div>
+          <span className="px-4 text-base-content/50 text-sm">Or</span>
+          <div className="border-t border-gray-200 flex-1"></div>
+        </div>
+
+        <div className="flex flex-col justify-center items-center gap-3">
+          {/* google button */}
+          <button
+            onClick={googleHandler}
+            className="w-full p-2 mt-2 bg-primary/10 hover:bg-primary/20 text-black/70 font-semibold text-sm rounded-lg transition-colors"
+          >
+            <div className="flex items-center justify-center gap-2 text-base-content/70">
+              <FcGoogle size={20} />
+              <span>Sign in with Google</span>
+            </div>
+          </button>
+        </div>
+
+        <div className="text-center mt-3">
+          <p className="text-base-content/50 ">
+            Don't you have an account?{" "}
+            <Link
+              state={location.state}
+              to="/auth/register"
+              className="hover:text-primary text-secondary font-semibold transition-colors"
+            >
+              Sign up
+            </Link>
+          </p>
+        </div>
 
         {/* Copyright */}
         <div className="text-center mt-10">

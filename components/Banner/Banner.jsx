@@ -21,7 +21,7 @@ export default function Banner() {
         className="mySwiper"
 
         autoplay={{
-          delay: 3000, 
+          delay: 5000, 
           disableOnInteraction: false,
         }}
         pagination={{
@@ -32,10 +32,10 @@ export default function Banner() {
       >
         {/* slider 1   */}
         <SwiperSlide>
-          <div className="w-full h-[300px] sm:h-[550px] bg-[linear-gradient(45deg,#000000ba,#00000000),url(./assets/slider_1_img.jpg)] bg-no-repeat bg-cover bg-center">
+          <div className="w-full h-[300px] sm:h-[550px] bg-[linear-gradient(90deg,#00000065,#000000bf),url(./assets/slider-1.jpg)] bg-no-repeat bg-cover bg-center">
             <div className="h-full max-w-7xl mx-auto px-5 flex justify-center">
               <div className="h-full sm:w-2/3 flex flex-col justify-center items-center gap-5 text-white overflow-hidden">
-                <h3 className="text-3xl sm:text-6xl font-black text-center">
+                <h3 className="text-3xl sm:text-6xl font-extrabold text-center">
                   Global Trade Made Simple
                 </h3>
                 <p className="text-sm leading-snug  sm:text-xl max-w-11/12 text-center">
@@ -55,10 +55,10 @@ export default function Banner() {
 
         {/* silder 2 */}
         <SwiperSlide>
-          <div className="w-full h-[300px] sm:h-[550px] bg-[linear-gradient(45deg,#000000ba,#00000000),url(./assets/slider_2_img.jpg)] bg-no-repeat bg-cover bg-center">
+          <div className="w-full h-[300px] sm:h-[550px] bg-[linear-gradient(90deg,#00000015,#0000007f),url(./assets/slider-2.jpg)] bg-no-repeat bg-cover bg-center">
             <div className="h-full max-w-7xl mx-auto px-5 flex justify-center">
               <div className="h-full sm:w-2/3 flex flex-col justify-center items-center gap-5 text-white overflow-hidden">
-                <h3 className="text-3xl sm:text-6xl font-black text-center">
+                <h3 className="text-3xl sm:text-6xl font-extrabold text-center">
                   Import Premium Products
                 </h3>
                 <p className="text-sm leading-snug  sm:text-xl max-w-11/12 text-center">
@@ -77,10 +77,10 @@ export default function Banner() {
 
         {/* slider 3 */}
         <SwiperSlide>
-          <div className="w-full h-[300px] sm:h-[550px] bg-[linear-gradient(45deg,#000000ba,#00000000),url(./assets/slider_3_img.jpg)] bg-no-repeat bg-cover bg-center">
+          <div className="w-full h-[300px] sm:h-[550px] bg-[linear-gradient(90deg,#00000065,#000000af),url(./assets/slider-3.jpg)] bg-no-repeat bg-cover bg-center">
             <div className="h-full max-w-7xl mx-auto px-5 flex justify-center">
               <div className="h-full sm:w-2/3 flex flex-col justify-center items-center gap-5 text-white overflow-hidden">
-                <h3 className="text-3xl sm:text-6xl font-black text-center">
+                <h3 className="text-3xl sm:text-6xl font-extrabold text-center">
                   Export Your Products
                 </h3>
                 <p className="text-sm leading-snug  sm:text-xl max-w-11/12 text-center">

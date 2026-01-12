@@ -4,6 +4,7 @@ import { FiBox } from "react-icons/fi";
 import { useContext, useEffect } from "react";
 import { AuthContext } from "../../provider/AuthProvider";
 import Swal from "sweetalert2";
+import { HiMenuAlt2 } from "react-icons/hi";
 
 export default function Navbar() {
   const { user, setUser, loading, logOut } = useContext(AuthContext);
@@ -72,7 +73,7 @@ export default function Navbar() {
     }`;
 
   const list = (
-    <ul className=" flex flex-col lg:flex-row items-center gap-5 font-medium ">
+    <>
       <li>
         <NavLink className={linkClass} to="/">
           Home
@@ -98,7 +99,7 @@ export default function Navbar() {
           Add Product
         </NavLink>
       </li>
-    </ul>
+    </>
   );
 
   return (
@@ -106,7 +107,42 @@ export default function Navbar() {
       <div className="navbar shadow-sm">
         <div className="navbar max-w-7xl mx-auto px-4">
           <div className="navbar-start">
-            <div className="dropdown">
+            {/* ================= */}
+
+
+            <div className="drawer w-fit">
+  <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
+  <div className="drawer-content flex flex-col items-center justify-center">
+    {/* Page content here */}
+    <label htmlFor="my-drawer-3" className="lg:hidden p-2 mr-2">
+      <HiMenuAlt2 size={20}/>
+    </label>
+  </div>
+  <div className="drawer-side">
+    <label htmlFor="my-drawer-3" aria-label="close sidebar" className="drawer-overlay"></label>
+    <ul className="menu bg-base-200 min-h-full w-80 p-4">
+      {/* Sidebar content here */}
+      <ul className="space-y-3">
+        {
+        list
+      }
+      </ul>
+      
+    </ul>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+            {/* ================= */}
+            {/* <div className="dropdown">
               <div tabIndex={0} role="button" className="mr-3 lg:hidden">
                 <div
                   className="h-5 w-5 flex items-center"
@@ -125,7 +161,7 @@ export default function Navbar() {
                   {list}
                 </ul>
               }
-            </div>
+            </div> */}
 
             <Link className="text-xl flex items-center gap-2">
               {/* <img className='h-5.5' src={logo} alt="logo" /> */}
@@ -136,7 +172,12 @@ export default function Navbar() {
             </Link>
           </div>
 
-          <div className="navbar-center hidden lg:flex">{list}</div>
+          <div className="navbar-center hidden lg:flex">
+            <ul className=" flex flex-col lg:flex-row items-center gap-5 font-medium ">
+              {list}
+            </ul>
+            
+            </div>
           <div className="navbar-end">
             {/* =========== theme ============ */}
 
