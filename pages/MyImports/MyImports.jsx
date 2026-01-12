@@ -42,7 +42,7 @@ const MyImports = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:3031/import-product/${id}`, {
+        fetch(`https://import-export-hub-api-server.vercel.app/import-product/${id}`, {
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",
